@@ -4,7 +4,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,-25&icon_names=language,menu" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,-25&icon_names=language,menu,monitoring" />
     <link rel="stylesheet" href="css/tail-output.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/index.js" type="module" defer></script>
@@ -51,7 +51,7 @@
         <div class="w-900 h-500 bg-white center z-10 rounded-2xl">
             <p class="bg-red- shadow-lg text-center py-3 text-lg font-Parkinsans font-bold">DOMAIN ANALYSIS</p>
             <div class="w-full h-72 bg-blue- mt-3">
-                <p class="py-4 text-center" id="basic-info">
+                <p class="py-4 my-4 text-center" id="basic-info">
                     <span id="url-text" class="text-blue-"></span> - 
                 </p>
                 <div id="results" class="w-full h-60 bg-red-">
@@ -60,7 +60,13 @@
                         <div class="w-1/2 bg-green- overflow-auto">
                             <table id="analysis-tab" class="w-full"></table>
                         </div>
-                        <div class="w-1/2 bg-yellow-500"></div>
+                        <div class="w-1/2 bg-yellow-500">
+                            <p class="bg-red-400 py-2 relative text-center">
+                                <span class="material-symbols-rounded bg-green- text-blue-500 absolute">monitoring</span>
+                                <span class="pl-8 bg-blue- text-lg">Insights</span>
+
+                            </p>
+                        </div>
                     </div>
 
                 </div>
@@ -71,8 +77,8 @@
 
     <!-- loading container -->
      <section class="w-full h-screen bg-red-500 center" id="loader">
-        <div class="w-450 h-72 rounded-2xl bg-white center">
-            <img src="/assets/spinner.svg" class="block mx-auto my-4" />
+        <div class="w-450 h-auto rounded-2xl bg-white text-center pb-16 center" id="loader-display">
+            <img src="/assets/spinner.svg" class="block my-4 mx-auto" />
             <div class="w-full text-center">
                 <p>analyzing url...</p>
                 <p>checking <b>WHOIS</b> records</p>

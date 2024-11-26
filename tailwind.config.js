@@ -29,8 +29,13 @@ module.exports = {
     "text-red-400",
     "border-orange-400",
     "text-orange-400",
+    "border-yellow-400",
+    "text-yellow-400",
     "border-blue-400",
     "text-blue-400",
+    "text-red-500",
+    "bg-red-500",
+    "bg-green-500"
   ],
   plugins: [],
 }

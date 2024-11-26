@@ -6,10 +6,11 @@ const overlay = document.getElementById("overlay");
 const analysis_table = document.getElementById("analysis-tab");
 const url_text = document.getElementById("url-text");
 const loader = document.getElementById("loader");
+const loader_display = document.getElementById("loader-display");
 
 analyze_form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  loader.style.display = 'block';
+  loader.style.display = "block";
 
   // get formData
   const form_data = Object.fromEntries(new FormData(analyze_form));
@@ -40,12 +41,25 @@ analyze_form.addEventListener("submit", async (e) => {
 
     if (analyzed_data?.error) {
       // domain not found
+      loader_display.innerHTML = "";
+      const err_code = analyzed_data.error.split("-")[0];
+      console.log(err_code);
+      const err_image = `<img src="/assets/error.jpg" class="block mx-auto" id="loader-img" width="100px"/>`;
+      const err_message =
+        err_code == "failed"
+          ? "<p class='text-red-500 loader-err'>There was a problem analyzing URL<br/>Please refresh page and try again</p>"
+          : "invalid"
+          ? "<p class='text-red-500 loader-err'>URL entered is <b>Invalid</b><br/>Enter another URL</p>"
+          : "Unknow Error: Contact Admin";
+        
+      const full_err_mess = err_image + err_message;
+      console.log(full_err_mess);
+      loader_display.insertAdjacentHTML("beforeend", full_err_mess);
       return;
     }
 
-    // close loader 
-    loader.style.display = 'none'
-
+    // close loader
+    loader.style.display = "none";
 
     // open insights dialog box
     overlay.style.display = "block";
@@ -61,9 +75,21 @@ analyze_form.addEventListener("submit", async (e) => {
         : phish_status === "phishing"
         ? "border-red-400 text-red-400"
         : phish_status === "likely"
-        ? "border-orange-400 text-orange-400"
+        ? "border-yellow-400 text-yellow-400"
         : "border-blue-400 text-blue-400";
-    const status_span = `<span id="sts" class="${status_color} border-2 border-dashed py-1 px-4 rounded-full">${analyzed_data.status}</span>`;
+
+    let info_color =
+      phish_status === "legit" || phish_status === "safe"
+        ? "info-green"
+        : phish_status === "phishing"
+        ? "info-red"
+        : phish_status === "likely"
+        ? "info-yellow"
+        : "info-blue";
+    basic_info.classList.add(info_color)
+    
+
+    const status_span = `<span id="sts" class="${status_color} border-2 border-dashed px-4 py-2 rounded-full"><b>${analyzed_data.status.toUpperCase()}</b></span>`;
     basic_info.insertAdjacentHTML("beforeend", status_span);
 
     const filteredResults = RefinedRes(analyzed_data);
@@ -87,13 +113,14 @@ analyze_form.addEventListener("submit", async (e) => {
     mainObj.forEach((row) => {
       let cols = ``;
       row.forEach((col) => {
-        if (col[0] == "creation_date") {
-          col[0] = "Date Created";
-        } else if (col[0] == "expiration_date") {
-          col[0] = "Expiration Date";
-        } else if (col[0] == "threat_score") {
-          col[0] = "Threat Score";
-        }
+        col[0] =
+          col[0] == "creation_date"
+            ? "Date Created"
+            : col[0] == "expiration_date"
+            ? "Expiration Date"
+            : col[0] == "threat_score"
+            ? "Threat Score"
+            : col[0];
         cols += `<td class=""><b>${col[0]}</b>: ${col[1]}</td>`;
       });
       let tab_row = `<tr class="row w-full">${cols}</tr>`;
