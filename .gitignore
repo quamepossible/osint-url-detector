@@ -1,0 +1,6 @@
+node_modules/
+dum.py
+.env
+static/js/dum.js
+static/css/tail-output.css
+gui/
