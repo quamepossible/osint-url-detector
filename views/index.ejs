@@ -13,7 +13,7 @@
     <title>OSINT - Phishing URL Detector</title>
   </head>
   <body class="font-Parkinsans">
-    <!-- parent container -->
+    <!-- home view -->
     <section class="w-full h-screen bg-gray-200 relative">
         <nav class="w-full h-16 bg-white row shadow-md">
             <div class="w-2/12 h-full bg-blue- relative">
@@ -40,9 +40,11 @@
 
         </div>
     </section>
+    <!-- home view -->
+
 
     <!-- overlay container -->
-      <section class=" w-full h-screen bg-black center" id="overlay">
+      <section class="w-full h-screen bg- center" id="overlay">
         <div class="w-full h-10 bg-red- mt-11">
             <span class="block w-20 py-2 text-center rounded-lg bg-red-500 font-bold text-white mx-auto">CLOSE</span>
         </div>
@@ -55,7 +57,7 @@
                 <div id="results" class="w-full h-60 bg-red-">
                     <span class="block w-24 py-3 bg-black text-white font-bold text-center">RESULTS</span>
                     <div class="w-full h-48 bg-blue- mt-4 row">
-                        <div class="w-1/2 bg-green-400 overflow-auto">
+                        <div class="w-1/2 bg-green- overflow-auto">
                             <table id="analysis-tab" class="w-full"></table>
                         </div>
                         <div class="w-1/2 bg-yellow-500"></div>
@@ -65,5 +67,22 @@
             </div>
         </div>
      </section> 
+    <!-- overlay container -->
+
+    <!-- loading container -->
+     <section class="w-full h-screen bg-red-500 center" id="loader">
+        <div class="w-450 h-72 rounded-2xl bg-white center">
+            <img src="/assets/spinner.svg" class="block mx-auto my-4" />
+            <div class="w-full text-center">
+                <p>analyzing url...</p>
+                <p>checking <b>WHOIS</b> records</p>
+                <p>comparing <b>phishing</b> records</p>
+            </div>
+        </div>
+     </section>
+    <!-- loading container -->
+
+
+
   </body>
 </html>

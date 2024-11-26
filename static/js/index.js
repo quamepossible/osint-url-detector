@@ -5,9 +5,11 @@ const analyze_form = document.getElementById("analyze-form");
 const overlay = document.getElementById("overlay");
 const analysis_table = document.getElementById("analysis-tab");
 const url_text = document.getElementById("url-text");
+const loader = document.getElementById("loader");
 
 analyze_form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  loader.style.display = 'block';
 
   // get formData
   const form_data = Object.fromEntries(new FormData(analyze_form));
@@ -31,23 +33,41 @@ analyze_form.addEventListener("submit", async (e) => {
     }
 
     const analysis_results = await do_analysis.json();
-    overlay.style.display = "block";
 
     // extract analyzed results from json output
     const analyzed_data = analysis_results["results"];
     console.log(analyzed_data);
+
+    if (analyzed_data?.error) {
+      // domain not found
+      return;
+    }
+
+    // close loader 
+    loader.style.display = 'none'
+
+
+    // open insights dialog box
+    overlay.style.display = "block";
+
     // display url on-top of page
-    url_text.innerHTML = analyzed_data.url;
+    url_text.innerHTML = analyzed_data?.url;
     // display phish status on-top of page
     const basic_info = document.getElementById("basic-info");
     const phish_status = analyzed_data.status;
-    let status_color = phish_status === 'legit' || phish_status === 'safe' ? 'green' : phish_status === 'phishing' ? 'red' : phish_status === 'likely' ? 'orange' : 'blue';
-    const status_span = `<span class="bg-${status_color}- border-2 border-blue-400 text-${status_color}-400 border-dashed py-1 px-4 rounded-full">${analyzed_data.status}</span>`
-    basic_info.insertAdjacentHTML('beforeend', status_span)
+    let status_color =
+      phish_status === "legit" || phish_status === "safe"
+        ? "border-green-400 text-green-400"
+        : phish_status === "phishing"
+        ? "border-red-400 text-red-400"
+        : phish_status === "likely"
+        ? "border-orange-400 text-orange-400"
+        : "border-blue-400 text-blue-400";
+    const status_span = `<span id="sts" class="${status_color} border-2 border-dashed py-1 px-4 rounded-full">${analyzed_data.status}</span>`;
+    basic_info.insertAdjacentHTML("beforeend", status_span);
 
-    const filteredResults = RefinedRes(analyzed_data)
+    const filteredResults = RefinedRes(analyzed_data);
     console.log("Refined Res ===> ", filteredResults);
-
 
     const data_obj_entries = Object.entries(filteredResults);
     let counter = 0;
@@ -67,11 +87,12 @@ analyze_form.addEventListener("submit", async (e) => {
     mainObj.forEach((row) => {
       let cols = ``;
       row.forEach((col) => {
-        if ( col[0] == "creation_date" ) {
-          col[0] = 'Date Created'
-        }
-        else if ( col[0] == "expiration_date" ) {
-          col[0] = 'Expiration Date'
+        if (col[0] == "creation_date") {
+          col[0] = "Date Created";
+        } else if (col[0] == "expiration_date") {
+          col[0] = "Expiration Date";
+        } else if (col[0] == "threat_score") {
+          col[0] = "Threat Score";
         }
         cols += `<td class=""><b>${col[0]}</b>: ${col[1]}</td>`;
       });

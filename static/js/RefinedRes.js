@@ -20,6 +20,7 @@ const RefinedRes = (phish_result) => {
     }
     else {
         return {
+            // url: phish_result.url,
             ...phish_result,
             creation_date: 'n/a',
             expiration_date: 'n/a',
