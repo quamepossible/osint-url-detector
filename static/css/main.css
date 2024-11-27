@@ -24,7 +24,7 @@
 }
 
 #overlay {
-  /* display: none; */
+  display: none;
   background-color: rgba(0, 0, 0, 0.85);
 }
 
@@ -44,6 +44,11 @@
 #analysis-tab {
   /* border: 1px solid green; */
   overflow: auto;
+}
+
+#insight-line {
+  margin-bottom: 8px;
+  padding-left: 10px
 }
 
 .info-green {
@@ -98,4 +103,5 @@
   padding-bottom: 7px;
   padding-left: 5px;
   font-size: 14px;
+  border-bottom: 1px solid black;
 }

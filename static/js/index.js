@@ -1,5 +1,8 @@
 "use strict";
 import { RefinedRes } from "./RefinedRes.js";
+import { Insight } from "./insight.js";
+import { FormatString } from "./FormatString.js";
+
 
 const analyze_form = document.getElementById("analyze-form");
 const overlay = document.getElementById("overlay");
@@ -7,6 +10,7 @@ const analysis_table = document.getElementById("analysis-tab");
 const url_text = document.getElementById("url-text");
 const loader = document.getElementById("loader");
 const loader_display = document.getElementById("loader-display");
+const hold_insights = document.getElementById("hold-insights");
 
 analyze_form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -66,6 +70,7 @@ analyze_form.addEventListener("submit", async (e) => {
 
     // display url on-top of page
     url_text.innerHTML = analyzed_data?.url;
+
     // display phish status on-top of page
     const basic_info = document.getElementById("basic-info");
     const phish_status = analyzed_data.status;
@@ -92,8 +97,13 @@ analyze_form.addEventListener("submit", async (e) => {
     const status_span = `<span id="sts" class="${status_color} border-2 border-dashed px-4 py-2 rounded-full"><b>${analyzed_data.status.toUpperCase()}</b></span>`;
     basic_info.insertAdjacentHTML("beforeend", status_span);
 
+    // extract analyzed results and make modification to data (age, dates, etc.)
     const filteredResults = RefinedRes(analyzed_data);
     console.log("Refined Res ===> ", filteredResults);
+
+    // from above modified results, create an insight report
+    const insight_report = Insight(filteredResults);
+    hold_insights.insertAdjacentHTML('beforeend', insight_report);
 
     const data_obj_entries = Object.entries(filteredResults);
     let counter = 0;
@@ -113,14 +123,7 @@ analyze_form.addEventListener("submit", async (e) => {
     mainObj.forEach((row) => {
       let cols = ``;
       row.forEach((col) => {
-        col[0] =
-          col[0] == "creation_date"
-            ? "Date Created"
-            : col[0] == "expiration_date"
-            ? "Expiration Date"
-            : col[0] == "threat_score"
-            ? "Threat Score"
-            : col[0];
+        col[0] = FormatString(col[0]);
         cols += `<td class=""><b>${col[0]}</b>: ${col[1]}</td>`;
       });
       let tab_row = `<tr class="row w-full">${cols}</tr>`;

@@ -4,7 +4,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,-25&icon_names=language,menu,monitoring" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,-25&icon_names=cancel,info,language,menu,monitoring,task_alt" />
     <link rel="stylesheet" href="css/tail-output.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/index.js" type="module" defer></script>
@@ -55,18 +55,29 @@
                     <span id="url-text" class="text-blue-"></span> - 
                 </p>
                 <div id="results" class="w-full h-60 bg-red-">
-                    <span class="block w-24 py-3 bg-black text-white font-bold text-center">RESULTS</span>
-                    <div class="w-full h-48 bg-blue- mt-4 row">
-                        <div class="w-1/2 bg-green- overflow-auto">
-                            <table id="analysis-tab" class="w-full"></table>
+                    <!-- <span class="block w-24 py-3 bg-black text-white font-bold text-center">RESULTS</span> -->
+                    <div class="w-full h-auto bg-blue- mt-4 row">
+                        <div class="w-1/2 bg-green- overflow-auto relative">
+                            <div class="w-90 h-64 mx-auto bg-blue- center">
+                                <p class="text-center py-2 mb-5 bg-green-900 text-white w-48 mx-auto rounded-md">
+                                    <span class="material-symbols-rounded absolute">info</span>
+                                    <span class="pl-8 font-bold">ABOUT URL</span>
+                                </p>
+                                <table id="analysis-tab" class="w-full center"></table>
+                            </div>
                         </div>
-                        <div class="w-1/2 bg-yellow-500">
-                            <p class="bg-red-400 py-2 relative text-center">
-                                <span class="material-symbols-rounded bg-green- text-blue-500 absolute">monitoring</span>
-                                <span class="pl-8 bg-blue- text-lg">Insights</span>
+                        <!-- insight section -->
+                        <div class="w-1/2 bg-yellow-">
+                            <div class="w-90 mx-auto">
+                                <p class="bg-blue-500 py-2 relative text-center rounded-full w-56 mx-auto my-2 text-white">
+                                    <span class="material-symbols-rounded bg-green- text-white absolute">monitoring</span>
+                                    <span class="pl-8 bg-blue- text-lg">Insights</span>
+                                </p>
+                                <div class="w-full h-56 bg-white border-t-2 border-gray-200 rounded-lg shadow-md" id="hold-insights"></div>
+                            </div>
+                        </div>
+                        <!-- insight section -->
 
-                            </p>
-                        </div>
                     </div>
 
                 </div>
