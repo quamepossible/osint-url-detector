@@ -1,0 +1,8 @@
+model.pkl
+osint.py
+__pycache__/
+.venv/
+.idea/
+*.pyc
+*.pyo
+.DS_STORE
