@@ -11,7 +11,11 @@ const url_text = document.getElementById("url-text");
 const loader = document.getElementById("loader");
 const loader_display = document.getElementById("loader-display");
 const hold_insights = document.getElementById("hold-insights");
+const basic_info = document.getElementById("basic-info");
+const close_btn = document.getElementById("close-btn");
+const input_field = document.getElementById("url");
 
+let info_color;
 analyze_form.addEventListener("submit", async (e) => {
   e.preventDefault();
   loader.style.display = "block";
@@ -72,7 +76,6 @@ analyze_form.addEventListener("submit", async (e) => {
     url_text.innerHTML = analyzed_data?.url;
 
     // display phish status on-top of page
-    const basic_info = document.getElementById("basic-info");
     const phish_status = analyzed_data.status;
     let status_color =
       phish_status === "legit" || phish_status === "safe"
@@ -83,7 +86,7 @@ analyze_form.addEventListener("submit", async (e) => {
         ? "border-yellow-400 text-yellow-400"
         : "border-blue-400 text-blue-400";
 
-    let info_color =
+    info_color =
       phish_status === "legit" || phish_status === "safe"
         ? "info-green"
         : phish_status === "phishing"
@@ -133,3 +136,29 @@ analyze_form.addEventListener("submit", async (e) => {
     console.log(e.message);
   }
 });
+
+
+// close overlay
+close_btn.addEventListener('click', () => {
+  console.log('close-btn clicked');
+  overlay.style.display = 'none';
+  // remove class (info-color) from basic-info
+  basic_info.classList.remove(info_color);
+
+  // set url-text innerhtml to ''
+  url_text.innerHTML = '';
+
+  // remove id="sts"
+  document.getElementById("sts").remove();
+
+  // set table innerhtml to ''
+  analysis_table.innerHTML = '';
+
+  // set hold-insights innerhtml to ''
+  hold_insights.innerHTML = '';
+
+  // clear input field
+  input_field.value = "";
+
+
+})
