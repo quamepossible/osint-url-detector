@@ -7,12 +7,17 @@ const RefinedRes = (phish_result) => {
         const date_created = new Date(creation_date)
         const date_expires = new Date(expiration_date)
         let year_age = Math.floor((Date.now() - date_created) / (1000*60*60*24*365));
-        // let month_age = year_age === 0 ? Math.floor((date_created - date_expires) / (1000*60*60*24*30)) : 0
-        // const age_desc = year_age === 1 ? `${year_age} Year` : year_age > 1 ? `${year_age} Years` : year_age === 0 && month_age > 1 ? `${month_age} Months` : `${month_age} Month`;
-        
+        let isMonth;
+        let isNew;
+        if (year_age === 0) { 
+            isMonth = Math.floor((Date.now() - date_created) / (1000*60*60*24*30));
+        }
+        if (isMonth === 0) {
+            isNew = '*New'
+        }
         return {
             url,
-            age: year_age,       
+            age: year_age > 0 ? `${year_age} years` : isMonth > 0 ? `${isMonth} months` : isNew,       
             ...phish_result,
             creation_date: creation_date = new Date(creation_date).toLocaleDateString('en-US',{month:'short',year:'numeric'}),
             expiration_date: new Date(expiration_date).toLocaleDateString('en-US',{month:'short',year:'numeric'}),
@@ -20,7 +25,6 @@ const RefinedRes = (phish_result) => {
     }
     else {
         return {
-            // url: phish_result.url,
             ...phish_result,
             creation_date: 'n/a',
             expiration_date: 'n/a',

@@ -9,7 +9,7 @@ const Insight = (refined_result) => {
         insight_arr.push(["Threat Score", ts_stat])
     }
     else if (key == 'age') {
-        let url_age = value > 2;
+        let url_age = Number(value.split(' ')[0]) > 2;
         insight_arr.push(["Domain Age", url_age])
     }
     else if (key == 'similar_count') {
